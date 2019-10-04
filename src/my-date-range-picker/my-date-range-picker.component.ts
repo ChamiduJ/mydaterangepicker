@@ -751,9 +751,9 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         let dny: boolean = false;
         if (this.opts.disableHeaderButtons) {
             dpm = this.drus.isMonthDisabledByDisableUntil({year: m === 1 ? y - 1 : y, month: m === 1 ? 12 : m - 1, day: this.daysInMonth(m === 1 ? 12 : m - 1, m === 1 ? y - 1 : y)}, this.opts.disableUntil);
-            dpy = this.drus.isMonthDisabledByDisableUntil({year: y - 1, month: m, day: this.daysInMonth(m, y - 1)}, this.opts.disableUntil);
+            dpy = this.drus.isMonthDisabledByDisableUntil({year: y - 1, month: m, day: this.daysInMonth(m, y - 1)}, this.opts.disableUntil) && y === this.opts.disableUntil.year;
             dnm = this.drus.isMonthDisabledByDisableSince({year: m === 12 ? y + 1 : y, month: m === 12 ? 1 : m + 1, day: 1}, this.opts.disableSince);
-            dny = this.drus.isMonthDisabledByDisableSince({year: y + 1, month: m, day: 1}, this.opts.disableSince);
+            dny = this.drus.isMonthDisabledByDisableSince({year: y + 1, month: m, day: 1}, this.opts.disableSince) && y === this.opts.disableSince.year;
         }
         this.prevMonthDisabled = m === 1 && y === this.opts.minYear || dpm;
         this.prevYearDisabled = y - 1 < this.opts.minYear || dpy;
