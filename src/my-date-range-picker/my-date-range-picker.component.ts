@@ -449,6 +449,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
             return;
         }
         this.visibleMonth.year--;
+        this.setPossibleEnabledMonth(this.opts.disableUntil, 1);
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
     }
 
@@ -457,7 +458,20 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
             return;
         }
         this.visibleMonth.year++;
+        this.setPossibleEnabledMonth(this.opts.disableSince, -1);
         this.generateCalendar(this.visibleMonth.monthNbr, this.visibleMonth.year, true);
+    }
+
+    setPossibleEnabledMonth({ year, month, day }: IMyDate, oneDay: number): void {
+        if (year && month && this.visibleMonth.year === year) {
+            const date = new Date(year, month - 1, day);
+            date.setDate(date.getDate() + oneDay);
+
+            const newMonth = date.getMonth() + 1;
+
+            this.visibleMonth.monthNbr = newMonth;
+            this.visibleMonth.monthTxt = this.monthText(newMonth);
+        }
     }
 
     clearRangeValues(): void {
