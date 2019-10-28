@@ -470,7 +470,7 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
         const { monthNbr } = this.visibleMonth;
 
         if (year && month && this.visibleMonth.year === year) {
-            let newDateMonth;
+            let newDateMonth: number;
 
             if (oneDay === 1) {
                 newDateMonth = monthNbr < month ? month : monthNbr;
