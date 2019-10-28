@@ -467,8 +467,18 @@ export class MyDateRangePicker implements OnChanges, OnDestroy, ControlValueAcce
     }
 
     setPossibleEnabledMonth({ year, month, day }: IMyDate, oneDay: number): void {
+        const { monthNbr } = this.visibleMonth;
+
         if (year && month && this.visibleMonth.year === year) {
-            const date = new Date(year, month - 1, day);
+            let newDateMonth;
+
+            if (oneDay === 1) {
+                newDateMonth = monthNbr < month ? month : monthNbr;
+            } else if (oneDay === -1) {
+                newDateMonth = monthNbr > month ? month : monthNbr;
+            }
+
+            const date = new Date(year, newDateMonth - 1, day);
             date.setDate(date.getDate() + oneDay);
 
             const newMonth = date.getMonth() + 1;
